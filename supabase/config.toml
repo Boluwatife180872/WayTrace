@@ -1,0 +1,5 @@
+project_id = "waytrace"
+
+[functions.simulate]
+verify_jwt = true
+include_import_map = true
