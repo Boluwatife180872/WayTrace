@@ -1,50 +1,122 @@
-# Welcome to your Expo app 👋
+# WayTrace
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A real-time delivery tracking mobile application built with React Native and Expo. WayTrace lets users follow their packages from dispatch to doorstep with live map tracking, driver details, and a full delivery history — even when offline.
 
-## Get started
+## The Problem
 
-1. Install dependencies
+Most delivery tracking experiences are fragmented: you get a static confirmation page, maybe a single "out for delivery" status, and then you wait. There's no real visibility into where your package is, who's delivering it, or how long it'll actually take. When you lose internet connection, you lose everything.
 
-   ```bash
-   npm install
-   ```
+## The Goal
 
-2. Start the app
+WayTrace was built to solve this by giving users a single, polished screen where they can watch their delivery move in real time on a map — complete with an animated truck marker, route visualization, ETA countdown, and driver contact options. The app also works seamlessly offline by caching delivery data locally, so you're never left in the dark.
 
-   ```bash
-   npx expo start
-   ```
+## Features
 
-In the output, you'll find options to open the app in a
+- **Live Map Tracking** — Animated truck marker moving along a polyline route with origin and destination pins
+- **Real-Time Status Updates** — Push-based updates via Supabase Realtime with progress bar and ETA
+- **Driver Profile** — View your driver's name, avatar, and reach them via chat or call
+- **Delivery History** — Searchable, filterable list of all past deliveries with status badges and thumbnails
+- **Offline Support** — SQLite local cache so the app works without an internet connection
+- **Demo Simulation** — Built-in simulator to run test deliveries end-to-end without a real backend
+- **Network Awareness** — Detects connectivity changes and shows offline/online banners
+- **Authentication** — Secure login and signup powered by Supabase Auth
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Tech Stack
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Layer | Technology |
+|-------|-----------|
+| Framework | Expo SDK 54 + React Native 0.81 |
+| Styling | NativeWind (Tailwind CSS) |
+| Navigation | Expo Router (file-based) |
+| Backend | Supabase (Auth, Database, Realtime, Edge Functions) |
+| State | Zustand + TanStack React Query |
+| Maps | react-native-maps |
+| Offline | expo-sqlite |
+| Lists | @shopify/flash-list |
 
-## Get a fresh project
+## Getting Started
 
-When you're ready, run:
+### Prerequisites
+
+- Node.js 18+
+- Expo CLI (`npm install -g expo-cli`)
+- A [Supabase](https://supabase.com) project with the database schema set up
+
+### Installation
 
 ```bash
-npm run reset-project
+git clone <your-repo-url>
+cd WayTrace
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Environment Variables
 
-## Learn more
+Create a `.env` file in the project root:
 
-To learn more about developing your project with Expo, look at the following resources:
+```env
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_url
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Running the App
 
-## Join the community
+```bash
+npx expo start
+```
 
-Join our community of developers creating universal apps.
+Scan the QR code with Expo Go, or press `a` for Android emulator / `i` for iOS simulator.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Demo Mode
+
+The app includes a built-in simulator. Open the tracking screen, tap the **Demo** button, and press **Run** to watch a delivery play out in real time — no backend setup required for the demo.
+
+To seed test data into your Supabase instance:
+
+```bash
+cd simulator
+npm install
+node seed-history.js
+```
+
+## Project Structure
+
+```
+WayTrace/
+├── app/                    # Expo Router screens
+│   ├── (auth)/             # Login & Signup
+│   ├── (app)/              # Main app screens
+│   │   ├── index.tsx       # Live tracking map
+│   │   ├── profile.tsx     # User profile
+│   │   └── history/        # Delivery history list + detail
+│   └── _layout.tsx         # Root layout
+├── hooks/                  # Custom React hooks
+│   ├── use-delivery.ts     # Active delivery + realtime subscription
+│   ├── use-history.ts      # Delivery history query
+│   └── use-profile.ts      # User profile fetch/update
+├── lib/                    # Core utilities
+│   ├── supabase.ts         # Supabase client init
+│   ├── local-db.ts         # SQLite caching layer
+│   ├── demo.ts             # Simulation hook
+│   └── network-store.ts    # Connectivity state
+├── stores/                 # Zustand stores
+│   └── auth.ts             # Authentication state
+├── types/                  # TypeScript types
+│   ├── database.ts         # Supabase DB schema types
+│   ├── delivery.ts         # Delivery & tracking types
+│   └── profile.ts          # User profile types
+├── simulator/              # Demo seed scripts
+└── assets/                 # Images, icons, splash screens
+```
+
+## Database Schema
+
+The Supabase database has three core tables:
+
+- **profiles** — User accounts (id, name, email, avatar)
+- **deliveries** — Active deliveries with live location, route, progress, and driver info
+- **delivery_history** — Completed deliveries with status, price, thumbnails, and route snapshots
+
+## License
+
+Private project. All rights reserved.
