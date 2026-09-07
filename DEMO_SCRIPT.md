@@ -7,7 +7,7 @@
 WayTrace is a real-time delivery tracking mobile app built with React Native and Expo. It lets users track their deliveries on a live map, view delivery history, and get real-time status updates — all with offline support so it works even with a bad or no internet connection.
 
 Think of it like the tracking experience you get from Uber Eats or Amazon, but as a standalone, focused tracking app.
-
+A real-time delivery tracking mobile application built with React Native and Expo. WayTrace lets users follow their packages from dispatch to doorstep with live map tracking, driver details, and a full delivery history — even when offline.
 ---
 
 ## Tech Stack
