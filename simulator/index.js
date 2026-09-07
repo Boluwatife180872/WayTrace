@@ -31,7 +31,7 @@ function buildTrack(route, segmentsPerEdge = 1) {
 }
 
 // Longer Lagos journey → higher starting ETA.
-const MAX_ETA_MINUTES = 18;
+const MAX_ETA_MINUTES = 28;
 
 function statusFor(progress) {
   if (progress === 0) return 'order_placed';

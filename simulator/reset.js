@@ -35,7 +35,7 @@ async function main() {
       current_lat: start.lat,
       current_lng: start.lng,
       route_progress: 0,
-      eta_minutes: 18,
+      eta_minutes: 28,
       updated_at: new Date().toISOString(),
     })
     .eq('id', id)

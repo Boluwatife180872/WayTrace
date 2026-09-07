@@ -10,8 +10,9 @@
 -- ============================================
 
 -- Active delivery for an existing profile user
--- Long, realistic Lagos route: Murtala Muhammed Int'l Airport (Ikeja)
--- → south through the mainland → Lagos Island → Victoria Island (~20km).
+-- Long, realistic Lagos-area route (~50km): Mowe (Ogun State, north of Lagos)
+-- → Ikeja (Murtala Muhammed Int'l Airport) → Lagos Island → Victoria Island
+-- → Lekki Phase 1 (east end). 6 waypoints → progress 0/20/40/60/80/100%.
 insert into public.deliveries (
   id, user_id, status, driver_name, driver_avatar_url,
   current_lat, current_lng, route, route_progress, eta_minutes
@@ -22,18 +23,18 @@ select
   'on_the_way',
   'Marcus J.',
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-  6.5775,
-  3.3214,
+  6.6980,
+  3.3186,
   '[
+    {"lat": 6.6980, "lng": 3.3186},
+    {"lat": 6.6300, "lng": 3.3820},
     {"lat": 6.5775, "lng": 3.3214},
-    {"lat": 6.5416, "lng": 3.3628},
-    {"lat": 6.5107, "lng": 3.3857},
-    {"lat": 6.4660, "lng": 3.4000},
     {"lat": 6.4531, "lng": 3.3958},
-    {"lat": 6.4281, "lng": 3.4215}
+    {"lat": 6.4281, "lng": 3.4215},
+    {"lat": 6.4400, "lng": 3.5450}
   ]'::jsonb,
   0,
-  18
+  28
 from public.profiles p
 limit 1
 on conflict (id) do nothing;
